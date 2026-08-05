@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vimal Company Job Portal</title>
+
+    <style>
+        body{
+            font-family:Arial,sans-serif;
+            margin:0;
+            background:#f2f2f2;
+        }
+
+        header{
+            background:#003366;
+            color:white;
+            text-align:center;
+            padding:20px;
+        }
+
+        header img{
+            width:120px;
+            height:120px;
+            border-radius:50%;
+            border:3px solid white;
+        }
+
+        .container{
+            width:380px;
+            margin:30px auto;
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 0 10px gray;
+        }
+
+        h2{
+            text-align:center;
+            color:#003366;
+        }
+
+        input{
+            width:100%;
+            padding:10px;
+            margin:8px 0;
+            box-sizing:border-box;
+        }
+
+        button{
+            width:100%;
+            padding:10px;
+            background:#003366;
+            color:white;
+            border:none;
+            cursor:pointer;
+            font-size:16px;
+            margin-top:10px;
+        }
+
+        button:hover{
+            background:green;
+        }
+
+        p{
+            text-align:center;
+        }
+
+        a{
+            color:blue;
+            cursor:pointer;
+            text-decoration:none;
+        }
+
+        #login{
+            display:none;
+        }
+
+        #register{
+            display:block;
+        }
+    </style>
+
+    <script>
+
+        var regEmail="";
+        var regPassword="";
+
+        function showLogin(){
+            document.getElementById("register").style.display="none";
+            document.getElementById("login").style.display="block";
+        }
+
+        function showRegister(){
+            document.getElementById("login").style.display="none";
+            document.getElementById("register").style.display="block";
+        }
+
+        function registerUser(){
+
+            var name=document.getElementById("name").value.trim();
+            var phone=document.getElementById("phone").value.trim();
+            var email=document.getElementById("email").value.trim();
+            var password=document.getElementById("password").value;
+
+            var namePattern=/^[A-Za-z ]+$/;
+            var phonePattern=/^[0-9]{10}$/;
+            var emailPattern=/^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+            // Exactly 6 characters:
+            // 1 Capital, 1 Small, 1 Number, 1 Symbol
+            var passwordPattern=/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@#$%^&*!]).{6}$/;
+
+            if(!namePattern.test(name)){
+                alert("Name should contain only letters.");
+                return false;
+            }
+
+            if(!phonePattern.test(phone)){
+                alert("Phone number must contain exactly 10 digits.");
+                return false;
+            }
+
+            if(!emailPattern.test(email)){
+                alert("Enter a valid Gmail address.");
+                return false;
+            }
+
+            if(!passwordPattern.test(password)){
+                alert("Password must be exactly 6 characters with 1 Capital, 1 Small, 1 Number and 1 Special Symbol.");
+                return false;
+            }
+
+            regEmail=email;
+            regPassword=password;
+
+            alert("Registration Successful!");
+
+            showLogin();
+
+            return false;
+        }
+
+        function loginUser(){
+
+            var email=document.getElementById("loginEmail").value.trim();
+            var password=document.getElementById("loginPassword").value;
+
+            if(email==regEmail && password==regPassword){
+                alert("Login Successful!");
+            }
+            else{
+                alert("Invalid Email or Password");
+            }
+
+            return false;
+        }
+
+    </script>
+
+</head>
+
+<body>
+
+<header>
+
+    <!-- Place a file named company.jpg in the same folder -->
+    <img src="company.jpg" alt="Vimal Company Logo">
+
+    <h1>VIMAL COMPANY</h1>
+
+    <h3>Online Recruitment Portal</h3>
+
+    <p>Welcome to Vimal Company Job Portal</p>
+
+</header>
+
+<!-- Register Page -->
+
+<div class="container" id="register">
+
+<h2>Register</h2>
+
+<form onsubmit="return registerUser();">
+
+<input type="text" id="name" placeholder="Enter Full Name" required>
+
+<input type="text" id="phone" placeholder="Enter 10 Digit Phone Number" required>
+
+<input type="email" id="email" placeholder="Enter Gmail Address" required>
+
+<input type="password" id="password" placeholder="Example: A1@abc" maxlength="6" required>
+
+<button type="submit">Register</button>
+
+<p>
+Already Registered?
+<a onclick="showLogin()">Login</a>
+</p>
+
+</form>
+
+</div>
+
+<!-- Login Page -->
+
+<div class="container" id="login">
+
+<h2>Login</h2>
+
+<form onsubmit="return loginUser();">
+
+<input type="email" id="loginEmail" placeholder="Enter Gmail Address" required>
+
+<input type="password" id="loginPassword" placeholder="Enter Password" required>
+
+<button type="submit">Login</button>
+
+<p>
+New User?
+<a onclick="showRegister()">Register</a>
+</p>
+
+</form>
+
+</div>
+
+</body>
+</html>
