@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Online Food Ordering System</title>
+<link rel="stylesheet" href="external.css">
+
+<style>
+
+body{
+font-family:Arial;
+background:#fff8f0;
+margin:0;
+}
+
+header{
+background:linear-gradient(90deg,#ff5722,#ff9800);
+color:white;
+text-align:center;
+padding:15px;
+}
+
+h2{
+text-align:center;
+color:#d84315;
+}
+
+.top{
+display:flex;
+justify-content:space-around;
+padding:15px;
+}
+
+.cat{
+width:30%;
+text-align:center;
+background:white;
+border:1px solid gray;
+padding:10px;
+border-radius:10px;
+}
+
+.cat img{
+width:100%;
+height:180px;
+border-radius:10px;
+}
+
+.grid{
+display:flex;
+justify-content:space-around;
+flex-wrap:wrap;
+}
+
+.card{
+width:30%;
+background:white;
+border:1px solid gray;
+padding:10px;
+margin:10px;
+text-align:center;
+border-radius:10px;
+}
+
+.card img{
+width:180px;
+height:180px;
+cursor:move;
+border-radius:10px;
+}
+
+.wrap{
+display:flex;
+justify-content:space-around;
+align-items:flex-start;
+margin:20px;
+}
+
+#cart{
+width:45%;
+min-height:220px;
+border:3px dashed red;
+background:white;
+padding:20px;
+}
+
+form{
+width:45%;
+background:white;
+padding:20px;
+}
+
+input,select,textarea{
+width:100%;
+padding:8px;
+margin:6px 0;
+}
+
+button{
+background:#ff5722;
+color:white;
+border:none;
+padding:10px;
+width:100%;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#e64a19;
+}
+
+footer{
+text-align:center;
+padding:20px;
+}
+
+</style>
+
+<script>
+
+function allowDrop(ev)
+{
+ev.preventDefault();
+}
+
+function drag(ev)
+{
+ev.dataTransfer.setData("text",ev.target.id);
+}
+
+function drop(ev)
+{
+ev.preventDefault();
+var data=ev.dataTransfer.getData("text");
+ev.target.appendChild(document.getElementById(data));
+}
+
+function showLocation()
+{
+if(navigator.geolocation)
+{
+navigator.geolocation.getCurrentPosition(function(position)
+{
+document.getElementById("loc").innerHTML=
+"Latitude : "+position.coords.latitude+
+"<br>Longitude : "+position.coords.longitude;
+});
+}
+}
+
+</script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1 style="font-size:40px;">
+🍔 ONLINE FOOD ORDERING SYSTEM 🍕</h1>
+
+</header>
+
+<div class="top">
+
+<div class="cat">
+<a href="#pizza">
+<img src="pizza.jpg">
+</a>
+<h3>PIZZAS</h3>
+</div>
+
+<div class="cat">
+<a href="#burger">
+<img src="burger.jpg">
+</a>
+<h3>BURGERS</h3>
+</div>
+
+<div class="cat">
+<a href="#drinks">
+<img src="drinks.jpg">
+</a>
+<h3>DRINKS</h3>
+</div>
+
+</div>
+
+<h2 id="pizza">🍕 PIZZAS</h2>
+
+<div class="grid">
+
+<div class="card">
+<img id="p1" draggable="true" ondragstart="drag(event)" src="magherita.jpg">
+<h3>Margherita Pizza</h3>
+<h4>₹299</h4>
+
+<video width="220" controls>
+<source src="pizvid.mp4">
+</video>
+
+</div>
+
+<div class="card">
+<img id="p2" draggable="true" ondragstart="drag(event)" src="pepproni.jpg">
+<h3>Pepperoni Pizza</h3>
+<h4>₹399</h4>
+
+<video width="220" controls>
+<source src="pizvid.mp4">
+</video>
+
+</div>
+
+<div class="card">
+<img id="p3" draggable="true" ondragstart="drag(event)" src="veg.jpg">
+<h3>Veg Supreme Pizza</h3>
+<h4>₹349</h4>
+
+<video width="220" controls>
+<source src="pizvid.mp4">
+</video>
+
+</div>
+
+</div>
+
+<h2 id="burger">🍔 BURGERS</h2>
+
+<div class="grid">
+
+<div class="card">
+<img id="b1" draggable="true" ondragstart="drag(event)" src="chicken.jpg">
+<h3>Chicken Burger</h3>
+<h4>₹199</h4>
+
+<video width="220" controls>
+<source src="burvid.mp4">
+</video>
+
+</div>
+
+<div class="card">
+<img id="b2" draggable="true" ondragstart="drag(event)" src="vegburger.jpg">
+<h3>Veg Burger</h3>
+<h4>₹149</h4>
+
+<video width="220" controls>
+<source src="burvid.mp4">
+</video>
+
+</div>
+
+<div class="card">
+<img id="b3" draggable="true" ondragstart="drag(event)" src="cheese.jpg">
+<h3>Cheese Burger</h3>
+<h4>₹229</h4>
+
+<video width="220" controls>
+<source src="burvid.mp4">
+</video>
+
+</div>
+
+</div>
+
+<h2 id="drinks">🥤 DRINKS</h2>
+
+<div class="grid">
+
+<div class="card">
+<img id="d1" draggable="true" ondragstart="drag(event)" src="coke.jpg">
+<h3>Coca Cola</h3>
+<h4>₹60</h4>
+
+<video width="220" controls>
+<source src="drinkvid.mp4">
+</video>
+
+</div>
+
+<div class="card">
+<img id="d2" draggable="true" ondragstart="drag(event)" src="orange.jpg">
+<h3>Orange Juice</h3>
+<h4>₹90</h4>
+
+<video width="220" controls>
+<source src="drinkvid.mp4">
+</video>
+
+</div>
+
+<div class="card">
+<img id="d3" draggable="true" ondragstart="drag(event)" src="choc.jpg">
+<h3>Chocolate Shake</h3>
+<h4>₹120</h4>
+
+<video width="220" controls>
+<source src="drinkvid.mp4">
+</video>
+
+</div>
+
+</div>
+
+<div class="wrap">
+
+<div id="cart"
+ondrop="drop(event)"
+ondragover="allowDrop(event)">
+
+<h2>🛒 FOOD CART</h2>
+
+<p>Drag & Drop Food Items Here</p>
+
+</div>
+
+<form>
+
+<h2>ORDER FORM</h2>
+
+<input type="text" placeholder="Customer Name" required>
+
+<input type="email" placeholder="Email" required>
+
+<input type="tel" placeholder="Phone Number">
+
+<textarea placeholder="Delivery Address"></textarea>
+
+<select>
+
+<option>Pizza</option>
+
+<option>Burger</option>
+
+<option>Drink</option>
+
+</select>
+
+<input type="number" placeholder="Quantity">
+
+<input type="date">
+
+<input type="color">
+
+<select>
+
+<option>Cash on Delivery</option>
+
+<option>Credit Card</option>
+
+<option>Debit Card</option>
+
+<option>UPI</option>
+
+</select>
+
+<button style="background:green;">PLACE ORDER</button>
+</form>
+
+</div>
+
+<footer>
+
+<button onclick="showLocation()" style="width:250px;">
+SHOW RESTAURANT LOCATION
+</button>
+
+<p id="loc"></p>
+
+</footer>
+
+</body>
+</html>
