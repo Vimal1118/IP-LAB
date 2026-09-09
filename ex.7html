@@ -1,0 +1,168 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart User Registration</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .container {
+            width: 420px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            text-align: center;
+            color: #5a4fcf;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            box-sizing: border-box;
+            border: 1px solid #bbb;
+            border-radius: 7px;
+        }
+
+        input:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        input:invalid {
+            border-color: #bbb;
+        }
+
+        input:valid {
+            border-color: green;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            width: 120px;
+            border: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        input[type="submit"] {
+            background: #667eea;
+        }
+
+        input[type="reset"] {
+            background: #e74c3c;
+        }
+
+        input[type="submit"]:hover {
+            background: #4b5dcc;
+        }
+
+        input[type="reset"]:hover {
+            background: #c0392b;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>User Registration</h2>
+
+    <form action="display.jsp" method="post">
+
+        <!-- USERNAME -->
+        <label>User Name</label>
+        <input type="text"
+               name="username"
+               placeholder="Enter username"
+               pattern="[A-Za-z0-9]{4,20}"
+               title="Username must contain 4 to 20 letters or numbers"
+               required>
+
+        <!-- PASSWORD -->
+        <label>Password</label>
+        <input type="password"
+               name="password"
+               placeholder="Enter password"
+               pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+=!]).{6,}"
+               title="Password must contain at least 6 characters, one uppercase letter, one lowercase letter, one number and one special character"
+               required>
+
+        <!-- NAME -->
+        <label>Name</label>
+        <input type="text"
+               name="name"
+               placeholder="Enter your name"
+               pattern="[A-Za-z ]{3,50}"
+               title="Name must contain only letters and spaces"
+               required>
+
+        <!-- CREDIT CARD -->
+        <label>Credit Card Number</label>
+        <input type="text"
+               name="card"
+               placeholder="Enter 16 digit card number"
+               pattern="[0-9]{16}"
+               maxlength="16"
+               inputmode="numeric"
+               title="Credit card number must contain exactly 16 digits"
+               required>
+
+        <!-- EMAIL -->
+        <label>Email</label>
+        <input type="email"
+               name="email"
+               placeholder="example@gmail.com"
+               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+               title="Enter a valid email address like example@gmail.com"
+               required>
+
+        <!-- PHONE -->
+        <label>Phone Number</label>
+        <input type="tel"
+               name="phone"
+               placeholder="Enter 10 digit phone number"
+               pattern="[6-9][0-9]{9}"
+               maxlength="10"
+               inputmode="numeric"
+               title="Phone number must contain exactly 10 digits and start with 6, 7, 8 or 9"
+               required>
+
+        <div class="buttons">
+            <input type="submit" value="Register">
+            <input type="reset" value="Clear">
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>
+```
