@@ -1,0 +1,72 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Details</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .result {
+            width: 450px;
+            margin: 80px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            text-align: center;
+            color: #5a4fcf;
+        }
+
+        p {
+            padding: 10px;
+            background: #f2f3ff;
+            border-radius: 6px;
+        }
+
+        strong {
+            color: #5a4fcf;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="result">
+
+    <h2>Registration Successful</h2>
+
+    <%
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String name = request.getParameter("name");
+        String card = request.getParameter("card");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+    %>
+
+    <p><strong>User Name:</strong> <%= username %></p>
+
+    <p><strong>Password:</strong> <%= password %></p>
+
+    <p><strong>Name:</strong> <%= name %></p>
+
+    <p><strong>Credit Card:</strong> <%= card %></p>
+
+    <p><strong>Email:</strong> <%= email %></p>
+
+    <p><strong>Phone:</strong> <%= phone %></p>
+
+</div>
+
+</body>
+</html>
