@@ -1,0 +1,107 @@
+package session;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+
+public class Servlet2 extends HttpServlet {
+
+    private static Set<String> visitors =
+            new HashSet<String>();
+
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
+
+        showPage(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
+
+        showPage(request, response);
+    }
+
+    private void showPage(HttpServletRequest request,
+            HttpServletResponse response)
+            throws IOException {
+
+        response.setContentType("text/html");
+
+        PrintWriter out = response.getWriter();
+
+        String name = request.getParameter("username");
+
+        HttpSession session = request.getSession();
+
+        String sessionId = session.getId();
+
+        visitors.add(sessionId);
+
+        int count = visitors.size();
+
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Visitor Page</title>");
+
+        out.println("<style>");
+
+        out.println("body{font-family:Arial;"
+                + "background:#f2f2f2;"
+                + "text-align:center;"
+                + "padding:50px;}");
+
+        out.println(".box{background:white;"
+                + "width:500px;"
+                + "margin:auto;"
+                + "padding:30px;"
+                + "border-radius:10px;}");
+
+        out.println(".count{font-size:35px;"
+                + "font-weight:bold;}");
+
+        out.println("</style>");
+
+        out.println("</head>");
+
+        out.println("<body>");
+
+        out.println("<div class='box'>");
+
+        out.println("<h2>Hello, " + name + "!</h2>");
+
+        out.println("<h3>Session Tracking Successful</h3>");
+
+        out.println("<hr>");
+
+        out.println("<p>Session ID:</p>");
+
+        out.println("<p>" + sessionId + "</p>");
+
+        out.println("<hr>");
+
+        out.println("<h3>Unique Visitor Count</h3>");
+
+        out.println("<div class='count'>"
+                + count
+                + "</div>");
+
+        out.println("<p>visitor(s) accessed this page</p>");
+
+        out.println("<hr>");
+
+        out.println("<p>Hidden Form Field ✓</p>");
+        out.println("<p>URL Rewriting ✓</p>");
+        out.println("<p>HttpSession ✓</p>");
+
+        out.println("</div>");
+
+        out.println("</body>");
+        out.println("</html>");
+    }
+}
