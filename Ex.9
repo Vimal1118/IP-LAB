@@ -1,0 +1,129 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html><head><title>User Registration</title><style>
+body{font-family:Arial,sans-serif;background-color:skyblue;}
+.container{width:400px;margin:70px auto;background:white;padding:25px;border-radius:10px;}
+h2{text-align:center;}
+input,select{width:100%;padding:10px;margin:8px 0;box-sizing:border-box;}
+input[type="submit"]{background-color:green;color:white;border:none;cursor:pointer;}
+</style></head><body>
+<div class="container">
+<h2>User Registration</h2>
+<form action="register.jsp" method="post">
+User Name:<input type="text" name="userName" required>
+Password:<input type="password" name="password" required>
+Email:<input type="email" name="email" required>
+Products:<select name="Products">
+<option>Sugar</option><option>Milk</option>
+<option>Rice</option><option>Salt</option>
+</select><input type="submit" value="Register">
+</form></div></body></html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html><head><title>Login</title><style>
+body{font-family:Arial;background-color:lightblue;}
+.container{width:400px;margin:80px auto;background-color:white;padding:25px;border-
+radius:10px;}
+h2{text-align:center;}
+input{width:100%;padding:10px;margin:8px 0;box-sizing:border-box;}
+input[type="submit"]{background-color:blue;color:white;border:none;}
+</style></head><body>
+<div class="container">
+<h2>User Login</h2>
+<form action="validate.jsp" method="post">
+User Name:<input type="text" name="userName" required>
+Password:<input type="password" name="password" required>
+<input type="submit" value="Login">
+</form></div></body></html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html><head><title>Validate Login</title></head><body>
+<%String username=request.getParameter("userName");
+String password=request.getParameter("password");
+try{
+Class.forName("com.mysql.cj.jdbc.Driver");
+java.sql.Connection
+con=java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/servlet","root","Mathan@2
+005");
+java.sql.PreparedStatement ps=con.prepareStatement("SELECT * FROM USERDETAILS WHERE
+username=? AND password=?");
+ps.setString(1,username);
+ps.setString(2,password);
+java.sql.ResultSet rs=ps.executeQuery();
+if(rs.next()){
+session.setAttribute("username",username);
+response.sendRedirect("home.jsp");
+}else{
+out.println("<h2>Invalid Username or Password</h2>");
+out.println("<a href='login.jsp'>Try Again</a>");}
+rs.close();ps.close();con.close();
+}catch(Exception ex){
+out.println("<h3>Error: "+ex.getMessage()+"</h3>");}%>
+</body></html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html><head><title>Home</title><style>
+body{font-family:Arial;background-color:lightgreen;text-align:center;padding-top:100px;}
+.box{width:400px;margin:auto;background-color:white;padding:30px;border-radius:10px;}
+</style></head><body>
+<div class="box">
+<h2>Welcome <%=session.getAttribute("username")%></h2>
+<p>Login Successfully Completed.</p>
+<a href="display.jsp">View Registration Details</a>
+</div></body></html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html><head>
+<title>Registration Details</title>
+<style>
+body{font-family:Arial,sans-serif;background-color:lightblue;margin:0;padding:0;}
+h2{text-align:center;margin-top:40px;color:#333;}
+table{width:80%;margin:40px auto;border-collapse:collapse;background-color:white;}
+th{background-color:#333;color:white;padding:12px;}
+td{padding:12px;text-align:center;border:1px solid #999;}
+tr:nth-child(even){background-color:#f2f2f2;}
+</style></head><body>
+<h2>Registration Details</h2>
+<table><tr>
+<th>User Name</th><th>Password</th>
+<th>Email</th><th>Products</th></tr><%
+try{
+Class.forName("com.mysql.cj.jdbc.Driver");
+java.sql.Connection
+con=java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/servlet","root","Mathan@2
+005");
+java.sql.Statement stmt=con.createStatement();
+java.sql.ResultSet rs=stmt.executeQuery("SELECT * FROM USERDETAILS");
+while(rs.next()){
+%><tr>
+<td><%=rs.getString("username")%></td>
+<td><%=rs.getString("password")%></td>
+<td><%=rs.getString("email")%></td>
+<td><%=rs.getString("products")%></td>
+</tr><%}
+rs.close();stmt.close(); con.close();
+}catch(Exception ex){
+out.println("<h3>Error: "+ex.getMessage()+"</h3>");
+%></table></body></html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html><head>
+<title>Registration</title></head><body>
+<%String n=request.getParameter("userName");
+String p=request.getParameter("password");
+String e=request.getParameter("email");
+String c=request.getParameter("Products");
+try{
+Class.forName("com.mysql.cj.jdbc.Driver");
+java.sql.Connection
+con=java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/servlet","root","Mathan@2
+005");
+java.sql.PreparedStatement ps=con.prepareStatement("INSERT INTO
+USERDETAILS(username,password,email,Products) VALUES(?,?,?,?)");
+ps.setString(1,n);ps.setString(2,p);
+ps.setString(3,e);ps.setString(4,c);
+int i=ps.executeUpdate();
+if(i>0){response.sendRedirect("login.jsp");}
+ps.close();con.close();
+}catch(Exception ex){
+out.println("<h3>Error: "+ex.getMessage()+"</h3>");}%>
